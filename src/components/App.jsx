@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { FeedbackOptions } from './FeedbackOptions/Buttons';
 import { Section } from './Section/Section';
 import { Statistics } from './Statistics/Statistics';
+import { Notification } from './Notification/Notification';
 
 export class App extends Component {
   state = {
@@ -25,10 +26,8 @@ export class App extends Component {
   };
   render() {
     const options = Object.keys(this.state);
-    const total = Object.values(this.state).reduce(
-      (acc, option) => acc + option,
-      0
-    );
+    const total = this.countTotalFeedback();
+
     return (
       <div>
         <FeedbackOptions
@@ -44,7 +43,7 @@ export class App extends Component {
               countPositiveFeedbackPercentage={this.countPositiveFeedbackPercentage()}
             />
           ) : (
-            <p>There is no feedback</p>
+            <Notification message="There is no feedback" />
           )}
         </Section>
       </div>
